@@ -15,6 +15,9 @@
 // import Explanation from "./Explanation.vue";
 import axios from "axios";
 
+// import "./assets/test.json"
+
+
 export default {
   name: "Request",
   data() {
@@ -27,9 +30,10 @@ export default {
     updateWidth: function() {},
 
     getCont: function() {
-      let url =
-        "/api/translate_a/single?client=at&sl=en&tl=zh-CN&hl=zh-CN&dt=ex&dt=md&dt=t&q=" +
-        this.word;
+      // let url =
+      //   "/api/translate_a/single?client=at&sl=en&tl=zh-CN&hl=zh-CN&dt=ex&dt=md&dt=t&q=" +
+      //   this.word;
+      let url = '/test.json'
       axios
         .get(url)
         .then(
