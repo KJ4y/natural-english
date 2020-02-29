@@ -1,10 +1,15 @@
 <template>
-  <main id="app">
+  <main id="app" class="flex-center">
     <Title title="Natural English" />
     <InputWord @push-word="pushReq" />
     <Request :word="word" @push-cont="getCont" />
-    <Error v-if="err" />
-    <Content :cont="cont" v-else />
+    <keep-alive>
+      <transition name="component-fade" mode="out-in">
+        <Tips v-once v-if="view == null" />
+        <Error v-else-if="view == 'Error'" />
+        <Section :cont="cont" v-else />
+      </transition>
+    </keep-alive>
   </main>
 </template>
 
@@ -12,8 +17,9 @@
 import Title from "./components/Header.vue";
 import Request from "./components/engine/Request.vue";
 import InputWord from "./components/sections/InputWord.vue";
+import Tips from "./components/sections/Tips.vue";
 import Error from "./components/sections/Error.vue";
-import Content from "./components/sections/Section.vue";
+import Section from "./components/sections/Section.vue";
 
 export default {
   name: "App",
@@ -21,7 +27,7 @@ export default {
     return {
       word: null,
       cont: null,
-      err: false
+      view: null
     };
   },
 
@@ -37,9 +43,9 @@ export default {
     getCont: function(cont) {
       if (cont) {
         this.cont = cont;
-        this.err = false;
+        this.view = "Section";
       } else {
-        this.err = true;
+        this.view = "Error";
       }
     }
   },
@@ -47,47 +53,65 @@ export default {
     Title,
     InputWord,
     Request,
+    Tips,
     Error,
-    Content
+    Section
   }
 };
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 100vw;
-}
 body {
   background-color: #e0e0e0;
   padding: 0;
   margin: 0;
+  font: 1.5rem Arial;
 }
-
 :focus {
   outline: none;
 }
+h4,
+p {
+  margin: 1rem;
+}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
+h3,
 a:hover {
   color: #0098f8;
 }
 
-h3 {
-  color: #0098f8;
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 100vw;
+}
+/* 居中布局 */
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 块样式 */
+.block-style {
+  min-width: 0vw;
+  max-width: 60vw;
+
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+}
+
+
+/* 过度样式 */
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active for below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

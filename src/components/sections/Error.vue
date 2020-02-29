@@ -1,5 +1,5 @@
 <template>
-  <section class="error">
+  <section class="error flex-center">
     <h3>发生错误！！！</h3>
 
     <h4>可能原因①：</h4>
@@ -17,10 +17,6 @@ export default {
 
 <style scoped>
 .error {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
   background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);

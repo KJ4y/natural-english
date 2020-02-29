@@ -1,18 +1,5 @@
 <template>
-  <transition name="fade">
-    <div class="exp-cont" v-if="cont">
-      <transition name="fade">
-        <div class="btn-layout">
-          <button class="btn" @click="expVis">Explanation</button>
-          <button class="btn visBtn" @click="exaVis">Example</button>
-          <button class="btn" @click="expVis">Read</button>
-          <button class="btn" @click="exaVis">Wirte</button>
-          <button class="btn" @click="expVis">Listen</button>
-          <button class="btn" @click="exaVis">Speak</button>
-          <button class="btn" @click="exaVis">Revise</button>
-        </div>
-      </transition>
-
+  <div class="exp-cont" >
       <div class="explan vis" v-if="expvis">
         <h3>Explanation</h3>
         <div class="explan-cont" v-for="item in explan()" :key="item">
@@ -24,19 +11,7 @@
           </div>
         </div>
       </div>
-
-      <div class="example vis" v-if="exavis">
-        <h3>Example</h3>
-        <div class="example-cont" v-for="item in example()" :key="item">
-          <p>
-            <a>
-              <span v-html="item[0]"></span>
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-  </transition>
+  </div>
 </template>
 
 <script>
@@ -45,11 +20,11 @@ export default {
   data() {
     return {
       expvis: true,
-      exavis: false,
+      exavis: false
     };
   },
-  props:{
-    cont:null
+  props: {
+    cont: null
   },
   methods: {
     explan: function() {
@@ -98,8 +73,6 @@ export default {
   margin-bottom: 5rem;
 }
 
-
-
 .btn-layout {
   width: 100%;
   display: flex;
@@ -136,7 +109,7 @@ a:hover {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: opacity 1s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
