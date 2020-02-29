@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <main id="app">
     <Title title="Natural English" />
     <InputWord @push-word="pushReq" />
     <Request :word="word" @push-cont="getCont" />
     <Error v-if="err" />
     <Content :cont="cont" v-else />
-  </div>
+  </main>
 </template>
 
 <script>

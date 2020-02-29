@@ -3,9 +3,9 @@
     <h3>发生错误！！！</h3>
 
     <h4>可能原因①：</h4>
-    <p>查询不到此单词。</p>
+    <span>查询不到此单词。</span>
     <h4>可能原因②：</h4>
-    <p>此IP访问请求已达到上限，请过段时间再来学习或更换网络。</p>
+    <span>此IP访问请求已达到上限，请过段时间再来学习或更换网络。</span>
   </section>
 </template>
 
@@ -17,6 +17,10 @@ export default {
 
 <style scoped>
 .error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
