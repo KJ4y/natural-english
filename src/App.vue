@@ -1,23 +1,54 @@
 <template>
   <div id="app">
-    <Title />
-    <Content />
-    <!-- <Request  /> -->
+    <Title title="Natural English" />
+    <InputWord @push-word="pushReq" />
+    <Request :word="word" @push-cont="getCont" />
+    <Error v-if="err" />
+    <Content :cont="cont" v-else />
   </div>
 </template>
 
 <script>
 import Title from "./components/Title.vue";
+import InputWord from "./components/InputWord.vue";
+import Request from "./components/engine/Request.vue";
+import Error from "./components/Error.vue";
 import Content from "./components/Content.vue";
-// import Request from "./components/Request.vue";
-
 
 export default {
   name: "App",
+  data() {
+    return {
+      word: null,
+      cont: null,
+      err: false
+    };
+  },
+
+  watch: {
+    cont: function() {
+      this.vis = true;
+    }
+  },
+  methods: {
+    pushReq: function(word) {
+      this.word = word;
+    },
+    getCont: function(cont) {
+      if (cont) {
+        this.cont = cont;
+        this.err = false;
+      } else {
+        this.err = true;
+      }
+    }
+  },
   components: {
     Title,
-    Content,
-    // Request,
+    InputWord,
+    Request,
+    Error,
+    Content
   }
 };
 </script>
@@ -44,7 +75,6 @@ body {
   outline: none;
 }
 
-
 ul {
   list-style-type: none;
   padding: 0;
@@ -54,6 +84,10 @@ li {
   margin: 0 10px;
 }
 a:hover {
+  color: #0098f8;
+}
+
+h3 {
   color: #0098f8;
 }
 </style>

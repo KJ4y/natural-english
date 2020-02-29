@@ -1,4 +1,4 @@
-# natural-english
+# Natural English
 
 ## 感受英语,回归自然
 

@@ -7,11 +7,9 @@
 <script>
 export default {
   name: "Title",
-  data() {
-    return {
-      title: "英语"
-    };
-  },
+  props:{
+    title:String
+  }
 };
 </script>
 

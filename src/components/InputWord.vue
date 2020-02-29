@@ -1,64 +1,35 @@
 <template>
-  <div class="req">
+  <div class="input">
     <span>s{{ word }}s</span>
-    <input
-      type="text"
-      v-model="word"
-      @input="updateWidth"
-      @keyup.enter="getCont"
-      placeholder="请输入单词"
-    />
+    <input type="text" v-model="word" @keyup.enter="getWord" placeholder="请输入单词" />
   </div>
 </template>
 
 <script>
-// import Explanation from "./Explanation.vue";
-import axios from "axios";
-
-// import "./assets/test.json"
-
-
 export default {
-  name: "Request",
+  name: "InputWord",
   data() {
     return {
-      word: null,
-      cont: null
+      word: null
     };
   },
   methods: {
-    updateWidth: function() {},
-
-    getCont: function() {
-      // let url =
-      //   "/api/translate_a/single?client=at&sl=en&tl=zh-CN&hl=zh-CN&dt=ex&dt=md&dt=t&q=" +
-      //   this.word;
-      let url = '/test.json'
-      axios
-        .get(url)
-        .then(
-          Response => (
-            (this.cont = Response.data), this.$emit("give-cont", this.cont)
-          )
-        );
+    getWord: function() {
+      this.$emit("push-word", this.word);
     }
-  },
-  components: {
-    // Explanation
   }
 };
 </script>
 
-
 <style scoped>
-.req {
+.input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* position: relative; */
+
   min-width: 0vw;
   max-width: 60vw;
-  /* height: 25vh; */
+
   background-color: #fff;
 
   border-radius: 1rem;
@@ -66,16 +37,16 @@ export default {
   padding: 0vh 5vw;
   margin-top: -3rem;
 
+  margin-bottom: 2rem;
+
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
 }
 
 input {
-  /* min-width: 1vw; */
-  /* max-width: 100vw; */
   margin-bottom: 1rem;
   width: 100%;
   background-color: #ffffff00;
-  /* border-radius: 1rem; */
+
   border-style: hidden hidden solid hidden;
   border-width: 2px;
   border-color: black;
@@ -92,7 +63,7 @@ span {
   background-color: #ffffff00;
   text-align: center;
   width: 100%;
-  /* z-index: -999; */
+
   color: #0098f800;
   font: 2.5rem Arial;
   font-weight: bold;

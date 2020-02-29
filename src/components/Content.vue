@@ -1,29 +1,25 @@
 <template>
   <div class="cont">
-    <Request @give-cont="getCont" />
-    <Explanation :cont="cont" />
+    <Explanation :cont="$attrs.cont" />
   </div>
 </template>
 
 <script>
-import Request from "./Request.vue";
-import Explanation from "./Explanation.vue";
+import Explanation from "./sections/Explanation.vue";
 
 export default {
   name: "Content",
 
+  props: {},
+
   data() {
-    return {
-      cont: null
-    };
+    return {};
   },
-  methods: {
-    getCont: function(cont) {
-      this.cont = cont;
-    }
-  },
+  watch: {},
+
+  methods: {},
+
   components: {
-    Request,
     Explanation
   }
 };
