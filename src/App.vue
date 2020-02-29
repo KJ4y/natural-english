@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import Title from "./components/Title.vue";
-import InputWord from "./components/InputWord.vue";
+import Title from "./components/Header.vue";
 import Request from "./components/engine/Request.vue";
-import Error from "./components/Error.vue";
-import Content from "./components/Content.vue";
+import InputWord from "./components/sections/InputWord.vue";
+import Error from "./components/sections/Error.vue";
+import Content from "./components/sections/Section.vue";
 
 export default {
   name: "App",

@@ -1,8 +1,8 @@
 <template>
-  <div class="input">
+  <section class="input">
     <span>s{{ word }}s</span>
     <input type="text" v-model="word" @keyup.enter="getWord" placeholder="请输入单词" />
-  </div>
+  </section>
 </template>
 
 <script>

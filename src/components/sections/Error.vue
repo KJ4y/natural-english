@@ -1,12 +1,12 @@
 <template>
-  <div class="error">
+  <section class="error">
     <h3>发生错误！！！</h3>
 
     <h4>可能原因①：</h4>
     <p>查询不到此单词。</p>
     <h4>可能原因②：</h4>
     <p>此IP访问请求已达到上限，请过段时间再来学习或更换网络。</p>
-  </div>
+  </section>
 </template>
 
 <script>

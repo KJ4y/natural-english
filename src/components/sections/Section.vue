@@ -1,7 +1,7 @@
 <template>
-  <div class="cont">
+  <section class="cont">
     <Explanation :cont="$attrs.cont" />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -30,7 +30,16 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-
   width: 70vw;
+
+  padding: 3vw;
+  margin-bottom: 5rem;
+
+  border-radius: 1rem;
+
+  background-color: #fff;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+
+  font: 1.5rem Arial;
 }
 </style>
