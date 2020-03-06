@@ -19,13 +19,6 @@ export default {
     cont: null,
     title:null
   },
-  computed: {
-    // explan: function() {
-    //   if (this.cont != null) {
-    //     return this.cont[12];
-    //   }
-    // }
-  },
   methods: {}
 };
 </script>
