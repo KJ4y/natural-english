@@ -1,24 +1,32 @@
 <template>
-  <section class="cont" v-if="cont">
+  <section class="cont flex-center block-style" v-if="cont">
+    
     <div class="btn-layout">
-      <button class="btn" @click="contview = 'Explanation'">Explanation</button>
-      <button class="btn visBtn" @click="contview = 'Example'">Example</button>
-      <button class="btn" @click="contview = 'Read'">Read</button>
-      <button class="btn" @click="contview = 'Wirte'">Wirte</button>
-      <button class="btn" @click="contview = 'Listen'">Listen</button>
-      <button class="btn" @click="contview = 'Speak'">Speak</button>
-      <button class="btn" @click="contview = 'Revise'">Revise</button>
+      <!-- <button
+        class="btn-cont"
+        :class="{ isactive:index == isActive }"
+        v-for="(btn ,index) in btns"
+        :key="index"
+        @click="btnView(btn,index)"
+      >{{ btn }}</button>-->
+      <button
+        class="btn"
+        :class="{ isactive:index == isActive }"
+        v-for="(btn ,index) in btns"
+        :key="index"
+        @click="btnView(btn,index)"
+      ></button>
     </div>
-
+    <h3>{{ btn }}</h3>
     <keep-alive>
       <transition name="component-fade" mode="out-in">
-        <Explanation :cont="cont" />
-        <Example :cont="cont" />
-        <Read />
-        <Write />
-        <Listen />
-        <Speak />
-        <Revise />
+        <Explanation v-if="btn == 'Explanation'" :cont="cont"  />
+        <Example v-else-if="btn == 'Example'" :cont="cont"  />
+        <Read v-else-if="btn == 'Read'"  />
+        <Write v-else-if="btn == 'Write'"  />
+        <Listen v-else-if="btn == 'Listen'"  />
+        <Speak v-else-if="btn == 'Speak'"  />
+        <Revise v-else-if="btn == 'Revise'"  />
       </transition>
     </keep-alive>
   </section>
@@ -40,23 +48,26 @@ export default {
 
   data() {
     return {
-      contview: null
+      btn: "Explanation",
+      isActive: 0,
+      noActive: true,
+      btns: [
+        "Explanation",
+        "Example",
+        "Read",
+        "Write",
+        "Listen",
+        "Speak",
+        "Revise"
+      ]
     };
   },
   watch: {},
 
   methods: {
-    visCont: function() {
-      switch (this.contview) {
-        case 1:
-          this.contview = 0;
-          break;
-        case 2:
-          // 执行代码块 2
-          break;
-        default:
-        // 与 case 1 和 case 2 不同时执行的代码
-      }
+    btnView: function(btn, index) {
+      this.btn = btn;
+      this.isActive = index;
     }
   },
 
@@ -73,6 +84,67 @@ export default {
 </script>
 
 <style scoped>
+/* 整体样式 */
+/* .cont {
+  margin-top: 1rem;
+} */
+
+/* 按钮样式 */
+.btn-layout {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  /* margin-bottom: -3rem; */
+  z-index: 5;
+}
+
+/* .btn-cont {
+  color: #0098f8;
+  background-color: #98d0f8;
+
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+  text-align: center;
+  width: 5rem;
+  height: 2.5rem;
+  font-family: Arial;
+  border: hidden;
+  margin: 0 0.3rem 0.3rem 0;
+  border-radius: 0.3rem;
+} */
+
+h3{
+  margin:2rem 0 0 0;
+}
+
+.btn {
+  color: #0098f8;
+  background-color: #98d0f8;
+
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+  text-align: center;
+  width: 2rem;
+  height: .5rem;
+  font-family: Arial;
+  border: hidden;
+  /* margin-right: .3rem; */
+  margin: 0 0.3rem;
+  border-radius: .2rem;
+}
+
+.isactive {
+  color: #fff;
+  background-color: #0098f8;
+}
+
+button:hover {
+  color: #fff;
+  /* background-color: #98d0f8; */
+  background-color: #0098f8;
+}
+
 /* 过度样式 */
 .component-fade-enter-active,
 .component-fade-leave-active {

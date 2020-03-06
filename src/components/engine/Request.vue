@@ -1,5 +1,5 @@
 <template>
-  <div class="reque vis" v-if="vis"></div>
+  <div class="reque" v-if="vis"></div>
 </template>
 
 <script>

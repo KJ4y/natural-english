@@ -5,7 +5,7 @@
     <Request :word="word" @push-cont="getCont" />
     <keep-alive>
       <transition name="component-fade" mode="out-in">
-        <Tips v-once v-if="view == null" />
+        <Tips v-once v-if="view == 'Tips'" />
         <Error v-else-if="view == 'Error'" />
         <Section :cont="cont" v-else />
       </transition>
@@ -27,14 +27,8 @@ export default {
     return {
       word: null,
       cont: null,
-      view: null
+      view: "Tips"
     };
-  },
-
-  watch: {
-    cont: function() {
-      this.vis = true;
-    }
   },
   methods: {
     pushReq: function(word) {
@@ -62,6 +56,7 @@ export default {
 
 <style>
 body {
+  /* width: 100vw; */
   background-color: #e0e0e0;
   padding: 0;
   margin: 0;
@@ -70,9 +65,9 @@ body {
 :focus {
   outline: none;
 }
-h4,
+h5,
 p {
-  margin: 1rem;
+  margin: 1rem 0.5rem;
 }
 
 h3,
@@ -84,7 +79,6 @@ a:hover {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100vw;
 }
 /* 居中布局 */
 .flex-center {
@@ -96,14 +90,16 @@ a:hover {
 
 /* 块样式 */
 .block-style {
-  min-width: 0vw;
-  max-width: 60vw;
-
+  max-width: 90vw;
   background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
-}
 
+  padding: 1rem 3vw;
+  font: 1.5rem Arial;
+  margin: 0 1rem 5rem;
+  /* margin-bottom: 5rem; */
+}
 
 /* 过度样式 */
 .component-fade-enter-active,
