@@ -1,11 +1,11 @@
 <template>
   <section class="input-block flex-center block-style">
-    <span class="input">s{{ word }}s</span>
+    <span class="input hide">s{{ word }}s</span>
     <input
       class="input"
       type="text"
       v-model.trim="word"
-      @keyup.enter="getWord"
+      @change="getWord"
       autocomplete="off"
       placeholder="请输入单词"
     />
@@ -13,20 +13,33 @@
 </template>
 
 <script>
+import axios from "axios";
+import get from "../../url";
+
 export default {
   name: "InputWord",
   data() {
     return {
-      word: null,
+      word: null
     };
   },
   methods: {
     getWord: function() {
       if (this.word != "") {
-        this.$emit("push-word", this.word);
+        // AJAX请求
+        var url = get.url(this.word);
+        axios
+          .get(url)
+          .then(Response => this.$emit("push-cont", Response.data))
+          .catch(error => {
+            if (error) {
+              let err = this;
+              err.cont = null;
+              this.$emit("push-cont", err.cont);
+            }
+          });
       }
     }
-
   }
 };
 </script>
@@ -44,6 +57,11 @@ export default {
   font-weight: bold;
   text-align: center;
   background-color: #ffffff00;
+  /* z-index: -99999; */
+}
+.hide{
+  margin-bottom: .7rem;
+  z-index: -99999;
 }
 
 input {

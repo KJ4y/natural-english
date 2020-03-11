@@ -1,45 +1,31 @@
 <template>
-  <section class="cont flex-center block-style" v-if="cont">
-    
+  <section class="cont block-style"  v-if="cont">
     <div class="btn-layout">
-      <!-- <button
-        class="btn-cont"
-        :class="{ isactive:index == isActive }"
-        v-for="(btn ,index) in btns"
-        :key="index"
-        @click="btnView(btn,index)"
-      >{{ btn }}</button>-->
       <button
         class="btn"
         :class="{ isactive:index == isActive }"
         v-for="(btn ,index) in btns"
         :key="index"
         @click="btnView(btn,index)"
-      ></button>
+      >
+        <span v-if="index == isActive">{{ btn }}</span>
+      </button>
     </div>
-    <h3>{{ btn }}</h3>
-    <keep-alive>
-      <transition name="component-fade" mode="out-in">
-        <Explanation v-if="btn == 'Explanation'" :cont="cont"  />
-        <Example v-else-if="btn == 'Example'" :cont="cont"  />
-        <Read v-else-if="btn == 'Read'"  />
-        <Write v-else-if="btn == 'Write'"  />
-        <Listen v-else-if="btn == 'Listen'"  />
-        <Speak v-else-if="btn == 'Speak'"  />
-        <Revise v-else-if="btn == 'Revise'"  />
-      </transition>
-    </keep-alive>
+    <transition name="component-fade" mode="out-in">
+      <keep-alive>
+        <Explanation v-if="btn == 'Explanation'" :cont="cont" :step="btn" @push-exps="getExp" />
+        <Example v-else-if="btn == 'Example'" :cont="cont" :step="btn" @push-exam="getExam" />
+        <Core v-else-if="btn == 'R.W.S.L'" :examed="examed" />
+        <!-- <Revise v-else-if="btn == 'Revise'" :title="btn" /> -->
+      </keep-alive>
+    </transition>
   </section>
 </template>
 
 <script>
 import Explanation from "./articles/Explanation";
 import Example from "./articles/Example";
-import Read from "./articles/Read";
-import Write from "./articles/Write";
-import Listen from "./articles/Listen";
-import Speak from "./articles/Speak";
-import Revise from "./articles/Revise";
+import Core from "./articles/Core";
 
 export default {
   name: "Section",
@@ -50,35 +36,39 @@ export default {
     return {
       btn: "Explanation",
       isActive: 0,
-      noActive: true,
-      btns: [
-        "Explanation",
-        "Example",
-        "Read",
-        "Write",
-        "Listen",
-        "Speak",
-        "Revise"
-      ]
+      examed: null,
+      exam: null,
+      btns: ["Explanation", "Example", "R.W.S.L", "Revise"]
     };
   },
-  watch: {},
+  watch: {
+    cont: function() {
+      this.btn = this.btns[0];
+      this.isActive = 0;
+    }
+  },
 
   methods: {
     btnView: function(btn, index) {
       this.btn = btn;
       this.isActive = index;
+    },
+    getExam: function(exam) {
+      this.examed = exam;
+      // this.exam = exam.replace("<b>", "").replace("</b>", "");
+      this.btn = "R.W.S.L";
+      this.isActive = 2;
+    },
+
+    getExp: function(exps) {
+      this.exam = exps;
     }
   },
 
   components: {
     Explanation,
     Example,
-    Read,
-    Write,
-    Listen,
-    Speak,
-    Revise
+    Core
   }
 };
 </script>
@@ -88,20 +78,22 @@ export default {
 /* .cont {
   margin-top: 1rem;
 } */
+h3 {
+  margin: 2rem 0 0 0;
+}
 
 /* 按钮样式 */
 .btn-layout {
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   align-self: center;
   justify-content: center;
+  text-align: center;
   flex-wrap: wrap;
-
-  /* margin-bottom: -3rem; */
   z-index: 5;
 }
 
-/* .btn-cont {
+/* .btn {
   color: #0098f8;
   background-color: #98d0f8;
 
@@ -115,10 +107,6 @@ export default {
   border-radius: 0.3rem;
 } */
 
-h3{
-  margin:2rem 0 0 0;
-}
-
 .btn {
   color: #0098f8;
   background-color: #98d0f8;
@@ -126,22 +114,34 @@ h3{
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
   text-align: center;
   width: 2rem;
-  height: .5rem;
+  height: 0.5rem;
   font-family: Arial;
   border: hidden;
-  /* margin-right: .3rem; */
   margin: 0 0.3rem;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
 }
 
 .isactive {
   color: #fff;
   background-color: #0098f8;
+
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+  text-align: center;
+  width: 5rem;
+  height: 2.5rem;
+  font-family: Arial;
+  border: hidden;
+  margin: 0 0.3rem 0.3rem 0;
+  border-radius: 5rem;
+}
+
+.isrwsl {
+  color: #fff;
+  background-color: #98d0f8;
 }
 
 button:hover {
   color: #fff;
-  /* background-color: #98d0f8; */
   background-color: #0098f8;
 }
 

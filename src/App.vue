@@ -1,8 +1,7 @@
 <template>
   <main id="app" class="flex-center">
     <Title title="Natural English" />
-    <InputWord @push-word="pushReq" />
-    <Request :word="word" @push-cont="getCont" />
+    <InputWord @push-cont="getCont" />
     <keep-alive>
       <transition name="component-fade" mode="out-in">
         <Tips v-once v-if="view == 'Tips'" />
@@ -15,11 +14,12 @@
 
 <script>
 import Title from "./components/Header.vue";
-import Request from "./components/engine/Request.vue";
 import InputWord from "./components/sections/InputWord.vue";
 import Tips from "./components/sections/Tips.vue";
 import Error from "./components/sections/Error.vue";
 import Section from "./components/sections/Section.vue";
+
+
 
 export default {
   name: "App",
@@ -31,11 +31,8 @@ export default {
     };
   },
   methods: {
-    pushReq: function(word) {
-      this.word = word;
-    },
     getCont: function(cont) {
-      if (cont) {
+      if (cont[12]) {
         this.cont = cont;
         this.view = "Section";
       } else {
@@ -46,7 +43,6 @@ export default {
   components: {
     Title,
     InputWord,
-    Request,
     Tips,
     Error,
     Section
@@ -56,7 +52,6 @@ export default {
 
 <style>
 body {
-  /* width: 100vw; */
   background-color: #e0e0e0;
   padding: 0;
   margin: 0;
@@ -70,9 +65,12 @@ p {
   margin: 1rem 0.5rem;
 }
 
-h3,
+h3,b,
 a:hover {
   color: #0098f8;
+}
+a:hover {
+  cursor: pointer;
 }
 
 #app {
@@ -86,6 +84,7 @@ a:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* 块样式 */
@@ -98,7 +97,11 @@ a:hover {
   padding: 1rem 3vw;
   font: 1.5rem Arial;
   margin: 0 1rem 5rem;
-  /* margin-bottom: 5rem; */
+}
+/* 图标样式 */
+.iconfont {
+  color: #0098f8;
+  font-size: 3rem;
 }
 
 /* 过度样式 */
@@ -106,8 +109,8 @@ a:hover {
 .component-fade-leave-active {
   transition: opacity 0.3s ease;
 }
-.component-fade-enter, .component-fade-leave-to
-/* .component-fade-leave-active for below version 2.1.8 */ {
+.component-fade-enter,
+.component-fade-leave-to {
   opacity: 0;
 }
 </style>
