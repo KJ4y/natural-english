@@ -27,12 +27,12 @@ export default {
       cont: null,
       view: "Tips",
       exams: [],
-      exps:[],
+      exps: []
     };
   },
   methods: {
     getCont: function(cont) {
-      if (cont[12] || cont[13]) {
+      if (cont[12] != null || cont[13] !== null) {
         this.cont = cont;
         for (let index = 0; index < cont[13][0].length; index++) {
           this.exams.push(cont[13][0][index][0]);
@@ -59,6 +59,7 @@ export default {
 <style>
 body {
   background-color: #e0e0e0;
+  /* max-width: 95vw; */
   padding: 0;
   margin: 0;
   font: 1.5rem Arial;
@@ -96,13 +97,13 @@ a:hover {
 
 /* 块样式 */
 .block-style {
-  max-width: 90vw;
   background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
-
-  padding: 1rem 3vw;
   font: 1.5rem Arial;
+
+  max-width: 90vw;
+  padding: 1rem 3vw;
   margin: 0 1rem 5rem;
 }
 /* 图标样式 */

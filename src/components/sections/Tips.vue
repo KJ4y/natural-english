@@ -1,39 +1,39 @@
 <template>
   <section class="tips">
-    <div v-if="expands !=true" class="flex-center block-style" @click="expandDes">
+    <div v-if="expands !=true" class="flex-center tip" @click="expandDes">
       <h3>
         使用方法
         <span v-if="expand != true" class="iconfont icon-unie607"></span>
       </h3>
-        <div v-if="expand">
-          <h4>
-            1.输入一个单词查看
-            <span>英语解释</span>
-          </h4>
-          <h4>
-            2.多看例句
-            <span>体会意思，想象场景</span>
-          </h4>
-          <h4>
-            ※3.选择一个
-            <span>大概能懂的句子</span>进行以下④个步骤：
-          </h4>
-          <p>
-            <span>①读：看句子 --- 想场景</span>
-            <br />
-            <span>②写：想场景 --- 打出字</span>
-            <br />
-            <span>③听：听句子 --- 想场景</span>
-            <br />
-            <span>④说：表达欲 --- 说句子</span>
-          </p>
-          <h4>
-            4.
-            <span>根据步骤3.所选的句子简单修改</span>再进行一遍听说读写
-          </h4>
-        </div>
+      <div v-if="expand">
+        <h4>
+          1.输入一个单词查看
+          <span>英语解释</span>
+        </h4>
+        <h4>
+          2.多看例句
+          <span>体会意思，想象场景</span>
+        </h4>
+        <h4>
+          ※3.选择一个
+          <span>大概能懂的句子</span>进行以下④个步骤：
+        </h4>
+        <p>
+          <span>①读：看句子 --- 想场景</span>
+          <br />
+          <span>②写：想场景 --- 打出字</span>
+          <br />
+          <span>③听：听句子 --- 想场景</span>
+          <br />
+          <span>④说：表达欲 --- 说句子</span>
+        </p>
+        <h4>
+          4.
+          <span>根据步骤3.所选的句子简单修改</span>再进行一遍听说读写
+        </h4>
+      </div>
     </div>
-    <div v-if="expand !=true" class="flex-center block-style" @click="expandsDes">
+    <div v-if="expand !=true" class="flex-center tip" @click="expandsDes">
       <h3>
         Tips
         <span v-if="expands != true" class="iconfont icon-unie607"></span>
@@ -91,14 +91,20 @@ export default {
 
 <style scoped>
 .tips {
-  width: 90vw;
+  /* width: 80vw; */
   padding: 3rem;
 }
-.block-style {
-  margin: 0 1rem 2rem;
-  padding: 0rem 3vw;
+.tip {
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+  font: 1.5rem Arial;
+
+  margin-bottom: 2rem;
+  padding: 0rem 1rem;
 }
-.block-style:hover {
+
+.tip:hover {
   cursor: pointer;
 }
 .iconfont {
@@ -106,5 +112,5 @@ export default {
 }
 span {
   color: #0098f8;
-} 
+}
 </style>

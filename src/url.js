@@ -85,7 +85,7 @@ function tq(a, b) {
 function url(q) {
     var tk = vq(q);
     // var url =
-    //     "https://bird.ioliu.cn/v2?url=https://translate.google.cn/translate_a/single?client=webapp&sl=en&tl=zh-CN&hl=zh-CN&dt=t&dt=ex&dt=md&q=" +
+    //     "https://bird.ioliu.cn/v1?url=https://translate.google.cn/translate_a/single?client=webapp&sl=en&tl=zh-CN&hl=zh-CN&dt=t&dt=ex&dt=md&q=" +
     //     q +
     //     tk;
     var url =
