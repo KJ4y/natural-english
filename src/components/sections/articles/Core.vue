@@ -13,12 +13,12 @@
     </div>
     <div v-if="examed">
       <transition name="component-fade" mode="out-in">
-        <keep-alive>
-          <Read v-if="btn == 'Read'" :examed="examed" />
-          <Write v-else-if="btn == 'Write'" :examed="examed" />
-          <Listen v-else-if="btn == 'Listen'" />
-          <Speak v-else-if="btn == 'Speak'" />
-        </keep-alive>
+        <!-- <keep-alive> -->
+        <Read v-if="btn == 'Read'" :examed="examed" />
+        <Write v-else-if="btn == 'Write'" :examed="examed" />
+        <Listen v-else-if="btn == 'Listen'" :examed="examed" />
+        <Speak v-else-if="btn == 'Speak'" :examed="examed" @push-cor="nextRev" />
+        <!-- </keep-alive> -->
       </transition>
     </div>
     <div class="block-style" v-else>
@@ -36,7 +36,8 @@ import Speak from "./cores/Speak";
 export default {
   name: "Core",
   props: {
-    examed: null
+    examed: null,
+    isactive: null
   },
   data() {
     return {
@@ -46,17 +47,13 @@ export default {
       btns: ["Read", "Write", "Listen", "Speak"]
     };
   },
-  // watch: {
-  //   cont: function() {
-  //     this.btn = this.btns[0];
-  //     this.isActive = 0;
-  //   }
-  // },
-
   methods: {
     btnView: function(btn, index) {
       this.btn = btn;
       this.isActive = index;
+    },
+    nextRev:function(coreOver){
+        this.$emit("push-cort", coreOver);
     }
   },
   components: {
@@ -70,33 +67,18 @@ export default {
 
 <style scoped>
 .block-style {
-  margin: 3rem 0 5rem 0;
+  margin: 3rem 0;
   box-shadow: none;
 }
 
 /* 按钮样式 */
 .btn-layout {
-  /* display: flex; */
   flex-direction: row;
   align-self: center;
   justify-content: center;
   flex-wrap: wrap;
   z-index: 5;
 }
-
-/* .btn {
-  color: #0098f8;
-  background-color: #98d0f8;
-
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
-  text-align: center;
-  width: 5rem;
-  height: 2.5rem;
-  font-family: Arial;
-  border: hidden;
-  margin: 0 0.3rem 0.3rem 0;
-  border-radius: 0.3rem;
-} */
 
 .btn {
   color: #0098f8;
@@ -129,5 +111,16 @@ export default {
 button:hover {
   color: #fff;
   background-color: #0098f8;
+}
+
+
+/* 过度样式 */
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active for below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>

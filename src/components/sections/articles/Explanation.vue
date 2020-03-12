@@ -4,7 +4,11 @@
     <div class="explan-cont" v-for="(item,index) in exp" :key="index">
       <h5>{{ item[0] }}</h5>
       <p class="word-explan" v-for="(item,index) in item[1]" :key="index">
-        <a :title="tran" @mouseenter="transFunc(item[0])" v-html="item[0]"></a>
+        <a
+          @click="transFunc(item[0])"
+          @mouseup="moveTrans()"
+          v-html="showTrans(item[0],tran)"
+        ></a>
       </p>
     </div>
     <p>{{text }}</p>
@@ -37,12 +41,19 @@ export default {
   },
   methods: {
     transFunc: function(item) {
-      let url = get.url(item);
-      if (this.explans.indexOf(item) == -1) {
+      let url = get.url(
+        '"' +
+          item
+            .replace("<b>", "")
+            .replace("</b>", "")
+            .replace(";", ".") +
+          '"'
+      );
+      this.explan = item.replace("<b>", "").replace("</b>", "");
+      if (this.trans[this.explans.indexOf(item)] == undefined) {
         this.explans.push(item);
         axios.get(url).then(Response => {
           for (let index = 0; index < Response.data[0].length; index++) {
-            console.log(Response.data[0][index][0]);
             this.text += Response.data[0][index][0];
           }
           this.trans.push(this.text);
@@ -50,6 +61,19 @@ export default {
         });
       }
       this.tran = this.trans[this.explans.indexOf(item)];
+    },
+    moveTrans: function() {
+      this.tran = null;
+    },
+    showTrans: function(item, tran) {
+      if (
+        item.replace("<b>", "").replace("</b>", "") == this.explan &&
+        tran != null
+      ) {
+        return item + "<br />" + tran;
+      } else {
+        return item;
+      }
     }
   }
 };

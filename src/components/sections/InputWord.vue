@@ -38,6 +38,8 @@ export default {
               this.$emit("push-cont", err.cont);
             }
           });
+      }else{
+        this.$emit("push-cont", this.word)
       }
     }
   }

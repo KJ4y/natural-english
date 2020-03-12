@@ -1,14 +1,15 @@
 <template>
-  <article class="example" v-if="cont">
+  <article class="example" v-if="exams">
     <h3>{{step}}</h3>
-    <div class="example-cont" v-for="(item,index) in cont[13][0]" :key="index">
+    <div class="example-cont" v-for="(item,index) in exams" :key="index">
       <p>
-        <a
-          :title="tran"
-          @mouseenter="transFunc(item[0])"
-          @click="clickLink(item[0])"
-          v-html="item[0]"
-        ></a>
+        <a @click="transFunc(item)" @mouseup="moveTrans()" v-html="showTrans(item,tran)"></a>
+        <span
+          v-if="tran == null"
+          style="font-size: 1.5rem;"
+          @click="nextOne(item)"
+          class="iconfont icon-10"
+        ></span>
       </p>
     </div>
   </article>
@@ -20,35 +21,70 @@ import get from "../../../url";
 export default {
   name: "Example",
   props: {
-    cont: null,
-    step: null
+    step: null,
+    exams: null
   },
   data() {
     return {
-      exam: null,
       tran: null,
-      exams: [],
-      trans: []
+      trans: [],
+      exam: null
     };
   },
   methods: {
     transFunc: function(item) {
       this.exam = item.replace("<b>", "").replace("</b>", "");
-      let url = get.url(item.replace("<b>", "").replace("</b>", "").replace(";", "."));
-      console.log(url)
-      if (this.exams.indexOf(item) == -1) {
-        this.exams.push(item);
+
+      let url = get.url(
+        '"' +
+          item
+            .replace("<b>", "")
+            .replace("</b>", "")
+            .replace(";", ".") +
+          '"'
+      );
+      if (this.trans[this.exams.indexOf(item)] == undefined) {
         axios
           .get(url)
           .then(Response => this.trans.push(Response.data[0][0][0]));
       }
       this.tran = this.trans[this.exams.indexOf(item)];
     },
-    clickLink: function(item) {
-      // this.exam = item.replace("<b>", "").replace("</b>", "");
+    moveTrans: function() {
+      this.tran = null;
+    },
+    showTrans: function(item, tran) {
+      if (
+        item.replace("<b>", "").replace("</b>", "") == this.exam &&
+        tran != null
+      ) {
+        return item + "<br />" + tran;
+      } else {
+        return item;
+      }
+    },
+    nextOne: function(item) {
       this.exam = item;
       this.$emit("push-exam", this.exam);
     }
+
+    // transThis: function() {
+    //     this.timeOutEvent = setTimeout(() => {
+    //     // 长按3秒
+    //     this.timeOutEvent = 0
+
+    //   }, 3000)
+    // },
+    // clickLink: function(item) {
+    //   // this.exam = item.replace("<b>", "").replace("</b>", "");
+    //   this.exam = item;
+    //   this.$emit("push-exam", this.exam);
+    // },
+    // getExam: function() {
+    //   for (let index = 0; index < this.exam[0].length; index++) {
+    //     this.exams.push(this.exam[0][index]);
+    //   }
+    // }
   }
 };
 </script>

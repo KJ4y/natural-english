@@ -1,6 +1,6 @@
 <template>
-  <article class="read">
-    <h3>{{ title }}</h3>
+  <article class="read flex-center">
+    <span class="iconfont icon-untitled2"></span>
     <div class="read-cont">
       <p v-html="examed"></p>
       <p v-html="trans"></p>
@@ -20,12 +20,11 @@ export default {
 </script>
 
 <style scoped>
-.read,.read-cont {
-  display: block;
-  margin-bottom: 2rem;
+.read-cont {
+  margin: 3rem 1rem;
   box-shadow: none;
-
   font-size: 2rem;
 }
+
 
 </style>

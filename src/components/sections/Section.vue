@@ -1,5 +1,5 @@
 <template>
-  <section class="cont block-style"  v-if="cont">
+  <section class="cont block-style" v-if="cont">
     <div class="btn-layout">
       <button
         class="btn"
@@ -12,12 +12,12 @@
       </button>
     </div>
     <transition name="component-fade" mode="out-in">
-      <keep-alive>
-        <Explanation v-if="btn == 'Explanation'" :cont="cont" :step="btn" @push-exps="getExp" />
-        <Example v-else-if="btn == 'Example'" :cont="cont" :step="btn" @push-exam="getExam" />
-        <Core v-else-if="btn == 'R.W.S.L'" :examed="examed" />
-        <!-- <Revise v-else-if="btn == 'Revise'" :title="btn" /> -->
-      </keep-alive>
+      <!-- <keep-alive> -->
+      <Explanation v-if="btn == 'Explanation'" :cont="cont" :step="btn" @push-exps="getExp" />
+      <Example v-else-if="btn == 'Example'" :exams="exams" :step="btn" @push-exam="getExam" />
+      <Core v-else-if="btn == 'R.W.L.S'" :examed="examed" @push-cort="nextRe" />
+      <Revise v-else-if="btn == 'Revise'" :examed="examed" />
+      <!-- </keep-alive> -->
     </transition>
   </section>
 </template>
@@ -26,28 +26,22 @@
 import Explanation from "./articles/Explanation";
 import Example from "./articles/Example";
 import Core from "./articles/Core";
+import Revise from "./articles/Revise";
 
 export default {
   name: "Section",
 
-  props: { cont: null },
+  props: { cont: null,exams:null },
 
   data() {
     return {
       btn: "Explanation",
       isActive: 0,
       examed: null,
-      exam: null,
-      btns: ["Explanation", "Example", "R.W.S.L", "Revise"]
+      btns: ["Explanation", "Example", "R.W.L.S", "Revise"],
+      exps: [],
     };
   },
-  watch: {
-    cont: function() {
-      this.btn = this.btns[0];
-      this.isActive = 0;
-    }
-  },
-
   methods: {
     btnView: function(btn, index) {
       this.btn = btn;
@@ -56,19 +50,26 @@ export default {
     getExam: function(exam) {
       this.examed = exam;
       // this.exam = exam.replace("<b>", "").replace("</b>", "");
-      this.btn = "R.W.S.L";
+      this.btn = "R.W.L.S";
       this.isActive = 2;
     },
 
     getExp: function(exps) {
       this.exam = exps;
+    },
+    nextRe: function(value) {
+      if (value == true) {
+        this.btn = "Revise";
+        this.isActive = 3;
+      }
     }
   },
 
   components: {
     Explanation,
     Example,
-    Core
+    Core,
+    Revise
   }
 };
 </script>

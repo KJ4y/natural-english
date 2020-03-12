@@ -6,7 +6,7 @@
       <transition name="component-fade" mode="out-in">
         <Tips v-once v-if="view == 'Tips'" />
         <Error v-else-if="view == 'Error'" />
-        <Section :cont="cont" v-else />
+        <Section :cont="cont" :exams="exams" v-else />
       </transition>
     </keep-alive>
   </main>
@@ -19,22 +19,28 @@ import Tips from "./components/sections/Tips.vue";
 import Error from "./components/sections/Error.vue";
 import Section from "./components/sections/Section.vue";
 
-
-
 export default {
   name: "App",
   data() {
     return {
       word: null,
       cont: null,
-      view: "Tips"
+      view: "Tips",
+      exams: [],
+      exps:[],
     };
   },
   methods: {
     getCont: function(cont) {
-      if (cont[12]) {
+      if (cont[12] || cont[13]) {
         this.cont = cont;
+        for (let index = 0; index < cont[13][0].length; index++) {
+          this.exams.push(cont[13][0][index][0]);
+        }
+        this.exps = cont[12];
         this.view = "Section";
+      } else if (cont == "") {
+        this.view = "Tips";
       } else {
         this.view = "Error";
       }
@@ -65,7 +71,8 @@ p {
   margin: 1rem 0.5rem;
 }
 
-h3,b,
+h3,
+b,
 a:hover {
   color: #0098f8;
 }
@@ -101,7 +108,8 @@ a:hover {
 /* 图标样式 */
 .iconfont {
   color: #0098f8;
-  font-size: 3rem;
+  font-size: 2rem;
+  margin-top: 2rem;
 }
 
 /* 过度样式 */
