@@ -20,13 +20,15 @@ export default {
   name: "InputWord",
   data() {
     return {
-      word: null
+      word: null,
+      url: null
     };
   },
   methods: {
     getWord: function() {
       if (this.word != "") {
-        // AJAX请求
+        this.url = get.url(this.word);
+        // AJAX请求;
         var url = get.url(this.word);
         axios
           .get(url)
@@ -38,8 +40,8 @@ export default {
               this.$emit("push-cont", err.cont);
             }
           });
-      }else{
-        this.$emit("push-cont", this.word)
+      } else {
+        this.$emit("push-cont", this.word);
       }
     }
   }
@@ -61,8 +63,8 @@ export default {
   background-color: #ffffff00;
   /* z-index: -99999; */
 }
-.hide{
-  margin-bottom: .7rem;
+.hide {
+  margin-bottom: 0.7rem;
   z-index: -99999;
 }
 

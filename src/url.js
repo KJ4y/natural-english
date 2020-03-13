@@ -61,8 +61,10 @@ function tq(a, b) {
 请求TKK值：
 --------------------------------------------------------------------------------*/
 (() => {
-    var url = 'https://bird.ioliu.cn/v1?url=https://translate.google.cn/';
-    // var url = 'https://translate.google.cn/';
+    // var url = 'https://bird.ioliu.cn/v1?url=https://translate.google.cn/';
+    // var url = 'https://translate.google.cn';
+    var url = 'http://49.234.207.163';
+
 
     axios.get(url, {
             transformResponse: [(data) => {
@@ -89,12 +91,11 @@ function url(q) {
     //     q +
     //     tk;
     var url =
-        "/api/translate_a/single?client=webapp&sl=en&tl=zh-CN&hl=zh-CN&dt=t&dt=ex&dt=md&q=" +
+        "http://49.234.207.163/translate_a/single?client=webapp&sl=en&tl=zh-CN&hl=zh-CN&dt=t&dt=ex&dt=md&q=" +
         q +
         tk;
     return url
 }
-
 function googleTTS(q) {
     var tk = vq(q);
     var len = q.length + 1;

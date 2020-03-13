@@ -6,7 +6,7 @@
       <option disabled selected value="select">请选择语音引擎</option>
       <option v-for="option in options" :key="option.value" :value="option.value">{{ option.text }}</option>
     </select>
-    <audio v-if="url" v-show="ok" :src="url" controls autoplay preload="none"></audio>
+    <audio ref="audio"></audio>
   </article>
 </template>
 
@@ -22,8 +22,7 @@ export default {
 
   data() {
     return {
-      url: null,
-      ok: null,
+      // url: null,
       select: "select",
       options: [
         { text: "谷歌", value: "google" },
@@ -31,29 +30,33 @@ export default {
         { text: "百度", value: "baidu" },
         { text: "搜狗", value: "sougou" }
       ],
-      voice: ""
+      autoplay: null
     };
   },
   watch: {
     select: function() {
       if (this.select == "google") {
-        this.url = get.googleTTS(
+        this.$refs.audio.src = get.googleTTS(
           this.examed.replace("<b>", "").replace("</b>", "")
         );
+        this.$refs.audio.play();
       } else if (this.select == "tencent") {
-        this.url = get.tencentTTS(
+        this.$refs.audio.src = get.tencentTTS(
           this.examed.replace("<b>", "").replace("</b>", "")
         );
+        this.$refs.audio.play();
       } else if (this.select == "baidu") {
-        this.url = get.baiduTTS(
+        this.$refs.audio.src = get.baiduTTS(
           this.examed.replace("<b>", "").replace("</b>", "")
         );
+        this.$refs.audio.play();
       } else if (this.select == "sougou") {
-        this.url = get.sougouTTS(
+        this.$refs.audio.src = get.sougouTTS(
           this.examed.replace("<b>", "").replace("</b>", "")
         );
+        this.$refs.audio.play();
       }
-    }
+    },
   },
   methods: {
     listenSent: function() {}
@@ -85,5 +88,4 @@ option {
 .radio-block {
   display: block;
 }
-
 </style>
