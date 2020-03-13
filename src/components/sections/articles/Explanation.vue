@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style scoped>
+.explan,.word-explan,.explan-cont,a{
+  text-align: center;
+}
 .explan-cont {
   display: block;
 }

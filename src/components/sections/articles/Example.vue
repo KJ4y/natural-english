@@ -1,9 +1,9 @@
 <template>
-  <article class="example" v-if="exams">
+  <article class="example flex-center" v-if="exams">
     <h3>{{step}}</h3>
     <div class="example-cont" v-for="(item,index) in exams" :key="index">
       <p>
-        <a @click="transFunc(item)" @mouseup="moveTrans()" v-html="showTrans(item,tran)"></a>
+        <a @click="transFunc(item)" @mouseout="moveTrans()" v-html="showTrans(item,tran)"></a><br>
         <span
           v-if="tran == null"
           style="font-size: 1.5rem;"
@@ -91,6 +91,12 @@ export default {
 
 <style scoped>
 .example-cont {
-  display: block;
+  display: flex;
+}
+p,a,h3{
+  text-align: center;
+}
+span:hover{
+  cursor: pointer;
 }
 </style>

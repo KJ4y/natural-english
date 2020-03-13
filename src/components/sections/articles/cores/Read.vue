@@ -24,6 +24,7 @@ export default {
   margin: 3rem 1rem;
   box-shadow: none;
   font-size: 2rem;
+  text-align: center;
 }
 
 

@@ -93,6 +93,9 @@ export default {
 </script>
 
 <style scoped>
+p{
+  text-align: center;
+}
 .tips {
   font-size: 2rem;
   margin-top: 2rem;
