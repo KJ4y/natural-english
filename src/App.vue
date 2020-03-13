@@ -32,13 +32,14 @@ export default {
   },
   methods: {
     getCont: function(cont) {
-      if (cont[12] != null || cont[13] !== null) {
+      if (cont[12] != null || cont[13] != null) {
         this.cont = cont;
         for (let index = 0; index < cont[13][0].length; index++) {
           this.exams.push(cont[13][0][index][0]);
         }
         this.exps = cont[12];
         this.view = "Section";
+        console.log('Section')
       } else if (cont == "") {
         this.view = "Tips";
       } else {

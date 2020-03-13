@@ -19,6 +19,7 @@ export default {
   width: 100%;
   color: #0098f8;
   background-color: #98d0f8;
+  padding-top: 2rem;
   padding-bottom: 5rem;
   box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
 }
