@@ -13,12 +13,10 @@
     </div>
     <div v-if="exam">
       <transition name="component-fade" mode="out-in">
-        <!-- <keep-alive> -->
         <Read v-if="btn == 'Read'" :examed="exam" />
         <Write v-else-if="btn == 'Write'" :examed="exam" />
         <Listen v-else-if="btn == 'Listen'" :examed="exam" />
         <Speak v-else-if="btn == 'Speak'" :examed="exam" />
-        <!-- </keep-alive> -->
       </transition>
     </div>
     <div class="flex-center" v-else-if="examed">

@@ -13,12 +13,10 @@
     </div>
     <div v-if="examed">
       <transition name="component-fade" mode="out-in">
-        <!-- <keep-alive> -->
         <Read v-if="btn == 'Read'" :examed="examed" />
         <Write v-else-if="btn == 'Write'" :examed="examed" />
         <Listen v-else-if="btn == 'Listen'" :examed="examed" />
         <Speak v-else-if="btn == 'Speak'" :examed="examed" @push-cor="nextRev" />
-        <!-- </keep-alive> -->
       </transition>
     </div>
     <div class="block-style" v-else>
@@ -111,6 +109,9 @@ export default {
 button:hover {
   color: #fff;
   background-color: #0098f8;
+}
+p{
+  text-align: center;
 }
 
 

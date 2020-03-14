@@ -7,7 +7,7 @@
       <span v-else class="iconfont icon-unie646" @click="clearText"></span>
     </div>
     <div class="tips" v-else>{{ showplace }}</div>
-    <input type="text" v-model="sentence" />
+    <input type="text" v-model="sentence" ref="out" @input="hideInput" />
   </article>
 </template>
 
@@ -34,6 +34,11 @@ export default {
   methods: {
     clearText: function() {
       this.sentence = null;
+    },
+    hideInput: function() {
+      if (this.sentence == this.thistrue) {
+        this.$refs.out.blur();
+      }
     }
   }
 };

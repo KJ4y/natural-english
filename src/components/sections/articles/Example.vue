@@ -6,7 +6,6 @@
         <a @click="transFunc(item)" @mouseout="moveTrans()" v-html="showTrans(item,tran)"></a><br>
         <span
           v-if="tran == null"
-          style="font-size: 1.5rem;"
           @click="nextOne(item)"
           class="iconfont icon-10"
         ></span>
@@ -67,24 +66,6 @@ export default {
       this.exam = item;
       this.$emit("push-exam", this.exam);
     }
-
-    // transThis: function() {
-    //     this.timeOutEvent = setTimeout(() => {
-    //     // 长按3秒
-    //     this.timeOutEvent = 0
-
-    //   }, 3000)
-    // },
-    // clickLink: function(item) {
-    //   // this.exam = item.replace("<b>", "").replace("</b>", "");
-    //   this.exam = item;
-    //   this.$emit("push-exam", this.exam);
-    // },
-    // getExam: function() {
-    //   for (let index = 0; index < this.exam[0].length; index++) {
-    //     this.exams.push(this.exam[0][index]);
-    //   }
-    // }
   }
 };
 </script>
@@ -98,5 +79,9 @@ p,a,h3{
 }
 span:hover{
   cursor: pointer;
+}
+
+.icon-10{
+  font-size: 2.5rem;
 }
 </style>

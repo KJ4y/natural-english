@@ -26,9 +26,12 @@ export default {
     },
     isFunny: function() {
       if (this.funny == null) {
+        this.funny = '大胆的说出来，别害羞！';
+        
+      } else if(this.funny == '大胆的说出来，别害羞！') {
         this.funny =
-          "别点了，装饰用的，辣鸡开发者不会弄语音识别，将就用吧，点我关闭或者进行下一步操作";
-      } else {
+          "并非掩饰辣鸡开发者不会弄语音识别";
+      }else {
         this.funny = null;
       }
     },
@@ -50,6 +53,9 @@ export default {
 
 .speak {
   position: relative;
+}
+.isfunny{
+  text-align: center;
 }
 .isfunny:hover {
   cursor: pointer;

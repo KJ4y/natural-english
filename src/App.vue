@@ -34,6 +34,7 @@ export default {
     getCont: function(cont) {
       if (cont[12] != null || cont[13] != null) {
         this.cont = cont;
+        this.exams = [];
         for (let index = 0; index < cont[13][0].length; index++) {
           this.exams.push(cont[13][0][index][0]);
         }

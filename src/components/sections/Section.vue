@@ -49,7 +49,6 @@ export default {
     },
     getExam: function(exam) {
       this.examed = exam;
-      // this.exam = exam.replace("<b>", "").replace("</b>", "");
       this.btn = "R.W.L.S";
       this.isActive = 2;
     },
@@ -76,16 +75,12 @@ export default {
 
 <style scoped>
 /* 整体样式 */
-/* .cont {
-  margin-top: 1rem;
-} */
 h3 {
   margin: 2rem 0 0 0;
 }
 
 /* 按钮样式 */
 .btn-layout {
-  /* display: flex; */
   flex-direction: row;
   align-self: center;
   justify-content: center;
@@ -93,20 +88,6 @@ h3 {
   flex-wrap: wrap;
   z-index: 5;
 }
-
-/* .btn {
-  color: #0098f8;
-  background-color: #98d0f8;
-
-  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
-  text-align: center;
-  width: 5rem;
-  height: 2.5rem;
-  font-family: Arial;
-  border: hidden;
-  margin: 0 0.3rem 0.3rem 0;
-  border-radius: 0.3rem;
-} */
 
 .btn {
   color: #0098f8;

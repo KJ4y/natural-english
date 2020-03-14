@@ -61,7 +61,6 @@ export default {
   font-weight: bold;
   text-align: center;
   background-color: #ffffff00;
-  /* z-index: -99999; */
 }
 .hide {
   margin-bottom: 0.7rem;

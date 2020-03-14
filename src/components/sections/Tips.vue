@@ -91,7 +91,6 @@ export default {
 
 <style scoped>
 .tips {
-  /* width: 80vw; */
   padding: 3rem;
 }
 .tip {

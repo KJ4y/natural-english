@@ -11,7 +11,6 @@
 </template>
 
 <script>
-// import axios from "axios";
 import get from "../../../../url";
 
 export default {
@@ -22,7 +21,6 @@ export default {
 
   data() {
     return {
-      // url: null,
       select: "select",
       options: [
         { text: "谷歌", value: "google" },
@@ -30,7 +28,6 @@ export default {
         { text: "百度", value: "baidu" },
         { text: "搜狗", value: "sougou" }
       ],
-      autoplay: null
     };
   },
   watch: {
@@ -66,7 +63,6 @@ export default {
 
 <style scoped>
 .listen {
-  /* margin: 3rem 1rem; */
   box-shadow: none;
   font-size: 2rem;
 }
