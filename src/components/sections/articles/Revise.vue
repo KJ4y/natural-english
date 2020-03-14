@@ -78,7 +78,6 @@ export default {
     },
     submitText: function() {
       this.exam = this.sentence;
-      this.examed = null;
     }
   },
   components: {
