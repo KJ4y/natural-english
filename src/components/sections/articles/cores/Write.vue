@@ -55,6 +55,7 @@ export default {
   font-size: 2.5rem;
   box-shadow: none;
   flex-direction: row;
+  text-align: center;
 }
 
 .icon-unie645,
