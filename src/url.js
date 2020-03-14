@@ -61,12 +61,8 @@ function tq(a, b) {
 请求TKK值：
 --------------------------------------------------------------------------------*/
 (() => {
-    // var url = 'https://bird.ioliu.cn/v1?url=https://translate.google.cn/';
-    // var url = 'https://translate.google.cn';
-    var url = 'http://49.234.207.163';
 
-
-    axios.get(url, {
+    axios.get(host, {
             transformResponse: [(data) => {
                 var tkkval = data.slice(data.indexOf("tkk") + 5, data.indexOf("',experiment"));
                 return tkkval;
@@ -81,28 +77,30 @@ function tq(a, b) {
 })();
 
 /*--------------------------------------------------------------------------------
+判断使用的Host请求：
+--------------------------------------------------------------------------------*/
+
+{
+    var host = 'https://bird.ioliu.cn/v1?url=https://translate.google.cn';
+    // var host = 'http://49.234.207.163';
+}
+
+/*--------------------------------------------------------------------------------
 计算URL地址：
 --------------------------------------------------------------------------------*/
 
 function url(q) {
     var tk = vq(q);
-    // var url =
-    //     "https://bird.ioliu.cn/v1?url=https://translate.google.cn/translate_a/single?client=webapp&sl=en&tl=zh-CN&hl=zh-CN&dt=t&dt=ex&dt=md&q=" +
-    //     q +
-    //     tk;
     var url =
-        "http://49.234.207.163/translate_a/single?client=webapp&sl=en&tl=zh-CN&hl=zh-CN&dt=t&dt=ex&dt=md&q=" +
+        host + "/translate_a/single?client=webapp&sl=en&tl=zh-CN&hl=zh-CN&dt=t&dt=ex&dt=md&q=" +
         q +
         tk;
     return url
 }
+
 function googleTTS(q) {
     var tk = vq(q);
     var len = q.length + 1;
-    // var url =
-    //     "https://translate.google.cn/translate_tts?ie=UTF-8&tl=en&client=t&q=" +
-    //     q +
-    //     tk;
     var url =
         'https://translate.google.cn/translate_tts?ie=UTF-8&tl=en&total=1&idx=0&prev=input&client=webapp' +
         "&textlen=" + len + "&q=" + q + tk;

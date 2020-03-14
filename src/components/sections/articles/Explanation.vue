@@ -3,11 +3,11 @@
     <h3>{{title}}</h3>
     <div class="explan-cont" v-for="(item,index) in explans" :key="index">
       <h5>{{ item[0] }}</h5>
-      <p class="word-explan" v-for="(item,index) in exps" :key="index">
-        <span @click="transFunc(item,index)" class="iconfont icon-unie718"></span>
-        <span v-html="item"></span>
+      <p class="word-explan" v-for="(item,index) in item[1]" :key="index">
+        <span @click="transFunc(item[0])" class="iconfont icon-unie718"></span>
+        <span v-html="item[0]"></span>
         <br />
-        <span class="blue" v-html="showTrans(index)"></span>
+        <span class="blue" v-html="showTrans(item[0])"></span>
       </p>
     </div>
   </article>
@@ -26,7 +26,6 @@ export default {
     return {
       title: "Explanation",
       exp: null,
-      show: null,
       tran: null
     };
   },
@@ -48,7 +47,7 @@ export default {
         }
       }
       return trans;
-    },
+    }
   },
   watch: {
     exp: function() {
@@ -71,17 +70,16 @@ export default {
     }
   },
   methods: {
-    transFunc: function(item, index) {
-      this.exp = item;
-      if (this.show != index) {
-        this.show = index;
+    transFunc: function(item) {
+      if (this.exp != item) {
+        this.exp = item;
       } else {
-        this.show = null;
+        this.exp = '';
       }
     },
-    showTrans: function(index) {
-      if (this.show == index && this.tran != null) {
-        return this.trans[this.show];
+    showTrans: function(item) {
+      if (item == this.exp && this.tran != null) {
+        return this.trans[this.exps.indexOf(this.exp)];
       }
     }
   }

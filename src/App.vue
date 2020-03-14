@@ -32,11 +32,14 @@ export default {
   },
   methods: {
     getCont: function(cont) {
-      if (cont[12] != null || cont[13] != null) {
+      if (cont == null) {
+        this.view = "Error";
+      } else if (cont[12] != null || cont[13] != null) {
         this.cont = cont;
         this.view = "Section";
       } else if (cont == "") {
         this.view = "Tips";
+        console.log("Tips");
       } else {
         this.view = "Error";
       }

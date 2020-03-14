@@ -21,7 +21,7 @@ export default {
 
 <style scoped>
 .read-cont {
-  margin: 3rem 1rem;
+  margin: 3rem 2rem;
   box-shadow: none;
   font-size: 2rem;
   text-align: center;
