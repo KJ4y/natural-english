@@ -12,12 +12,10 @@
       </button>
     </div>
     <transition name="component-fade" mode="out-in">
-      <!-- <keep-alive> -->
-      <Explanation v-if="btn == 'Explanation'" :cont="cont" :step="btn" @push-exps="getExp" />
-      <Example v-else-if="btn == 'Example'" :exams="exams" :step="btn" @push-exam="getExam" />
+      <Explanation v-if="btn == 'Explanation'" :explans="explans" />
+      <Example v-else-if="btn == 'Example'" :exams="exams" @push-exam="getExam" />
       <Core v-else-if="btn == 'R.W.L.S'" :examed="examed" @push-cort="nextRe" />
       <Revise v-else-if="btn == 'Revise'" :examed="examed" />
-      <!-- </keep-alive> -->
     </transition>
   </section>
 </template>
@@ -31,7 +29,7 @@ import Revise from "./articles/Revise";
 export default {
   name: "Section",
 
-  props: { cont: null,exams:null },
+  props: { cont: null },
 
   data() {
     return {
@@ -39,8 +37,20 @@ export default {
       isActive: 0,
       examed: null,
       btns: ["Explanation", "Example", "R.W.L.S", "Revise"],
-      exps: [],
     };
+  },
+  computed: {
+    exams: function() {
+      let exams = [];
+      for (let index = 0; index < this.cont[13][0].length; index++) {
+        exams.push(this.cont[13][0][index][0]);
+      }
+      return exams;
+    },
+    explans: function() {
+      let explans = this.cont[12];
+      return explans;
+    }
   },
   methods: {
     btnView: function(btn, index) {
@@ -49,12 +59,10 @@ export default {
     },
     getExam: function(exam) {
       this.examed = exam;
+      console.log(exam)
+      console.log(this.examed)
       this.btn = "R.W.L.S";
       this.isActive = 2;
-    },
-
-    getExp: function(exps) {
-      this.exam = exps;
     },
     nextRe: function(value) {
       if (value == true) {

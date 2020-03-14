@@ -1,9 +1,9 @@
 <template>
   <section class="tips">
-    <div v-if="expands !=true" class="flex-center tip" @click="expandDes">
+    <div v-show="expands !=true" class="flex-center tip" @click="expandDes">
       <h3>
         使用方法
-        <span v-if="expand != true" class="iconfont icon-unie607"></span>
+        <span v-if="expand != true" class="iconfont icon-10"></span>
       </h3>
       <div v-if="expand">
         <h4>
@@ -33,10 +33,10 @@
         </h4>
       </div>
     </div>
-    <div v-if="expand !=true" class="flex-center tip" @click="expandsDes">
+    <div v-show="expand !=true" class="flex-center tip" @click="expandsDes">
       <h3>
         Tips
-        <span v-if="expands != true" class="iconfont icon-unie607"></span>
+        <span v-show="expands != true" class="iconfont icon-10"></span>
       </h3>
 
       <p v-if="expands">
@@ -109,6 +109,10 @@ export default {
 .iconfont {
   font-size: 1.5rem;
 }
+.icon-10{
+  border-radius: 5rem;
+}
+
 span {
   color: #0098f8;
 }

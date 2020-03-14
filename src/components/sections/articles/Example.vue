@@ -1,14 +1,12 @@
 <template>
-  <article class="example flex-center" v-if="exams">
-    <h3>{{step}}</h3>
+  <article class="example flex-center" v-show="exams">
+    <h3>{{title}}</h3>
     <div class="example-cont" v-for="(item,index) in exams" :key="index">
       <p>
-        <a @click="transFunc(item)" @mouseout="moveTrans()" v-html="showTrans(item,tran)"></a><br>
-        <span
-          v-if="tran == null"
-          @click="nextOne(item)"
-          class="iconfont icon-10"
-        ></span>
+        <span @click="transFunc(item,index)" class="iconfont icon-unie718"></span>
+        <span @click="nextOne(item)" v-html="item"></span>
+        <br />
+        <span class="blue" v-html="showTrans(index)"></span>
       </p>
     </div>
   </article>
@@ -20,51 +18,62 @@ import get from "../../../url";
 export default {
   name: "Example",
   props: {
-    step: null,
     exams: null
   },
   data() {
     return {
+      title: "Example",
+      show: null,
       tran: null,
-      trans: [],
-      exam: null
+      exam:null
     };
   },
-  methods: {
-    transFunc: function(item) {
-      this.exam = item.replace("<b>", "").replace("</b>", "");
-
+  computed: {
+    trans: function() {
+      let trans = [];
+      for (let index = 0; index < this.exams.length; index++) {
+        trans.push(null);
+      }
+      return trans;
+    }
+  },
+  watch: {
+    exam: function() {
+      let examsSub = this.exams.indexOf(this.exam);
       let url = get.url(
         '"' +
-          item
+          this.exam
             .replace("<b>", "")
             .replace("</b>", "")
             .replace(";", ".") +
           '"'
       );
-      if (this.trans[this.exams.indexOf(item)] == undefined) {
-        axios
-          .get(url)
-          .then(Response => this.trans.push(Response.data[0][0][0]));
-      }
-      this.tran = this.trans[this.exams.indexOf(item)];
-    },
-    moveTrans: function() {
-      this.tran = null;
-    },
-    showTrans: function(item, tran) {
-      if (
-        item.replace("<b>", "").replace("</b>", "") == this.exam &&
-        tran != null
-      ) {
-        return item + "<br />" + tran;
-      } else {
-        return item;
+      if (this.trans[examsSub] == null) {
+        axios.get(url).then(Response => (this.tran = Response.data[0][0][0]));
       }
     },
-    nextOne: function(item) {
+    tran: function() {
+      let examsSub = this.exams.indexOf(this.exam);
+      this.trans.splice(examsSub, 1, this.tran);
+    }
+  },
+  methods: {
+    transFunc: function(item, index) {
       this.exam = item;
-      this.$emit("push-exam", this.exam);
+      if (this.show != index) {
+        this.show = index;
+      } else {
+        this.show = null;
+      }
+    },
+    showTrans: function(index) {
+      if (this.show == index && this.tran != null) {
+        return this.trans[this.show];
+      }
+    },
+
+    nextOne: function(item) {
+      this.$emit("push-exam", item);
     }
   }
 };
@@ -74,14 +83,21 @@ export default {
 .example-cont {
   display: flex;
 }
-p,a,h3{
+p,
+span,
+h3 {
   text-align: center;
 }
-span:hover{
+.blue {
+  color: #0098f8;
+  font-size: 1.2rem;
+}
+span:hover {
   cursor: pointer;
+  color: #0098f8;
 }
 
-.icon-10{
-  font-size: 2.5rem;
+.icon-unie718 {
+  font-size: 2rem;
 }
 </style>

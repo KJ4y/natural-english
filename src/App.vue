@@ -6,7 +6,7 @@
       <transition name="component-fade" mode="out-in">
         <Tips v-once v-if="view == 'Tips'" />
         <Error v-else-if="view == 'Error'" />
-        <Section :cont="cont" :exams="exams" v-else />
+        <Section :cont="cont" v-else />
       </transition>
     </keep-alive>
   </main>
@@ -34,13 +34,7 @@ export default {
     getCont: function(cont) {
       if (cont[12] != null || cont[13] != null) {
         this.cont = cont;
-        this.exams = [];
-        for (let index = 0; index < cont[13][0].length; index++) {
-          this.exams.push(cont[13][0][index][0]);
-        }
-        this.exps = cont[12];
         this.view = "Section";
-        console.log('Section')
       } else if (cont == "") {
         this.view = "Tips";
       } else {
@@ -61,7 +55,6 @@ export default {
 <style>
 body {
   background-color: #e0e0e0;
-  /* max-width: 95vw; */
   padding: 0;
   margin: 0;
   font: 1.5rem Arial;

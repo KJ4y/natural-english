@@ -1,6 +1,6 @@
 <template>
   <article class="content flex-center">
-    <div class="btn-layout" v-if="examed">
+    <div class="btn-layout" v-show="examed">
       <button
         class="btn"
         :class="{ isactive:index == isActive }"
@@ -8,7 +8,7 @@
         :key="index"
         @click="btnView(btn,index)"
       >
-        <span v-if="index == isActive">{{ btn }}</span>
+        <span v-show="index == isActive">{{ btn }}</span>
       </button>
     </div>
     <div v-if="examed">

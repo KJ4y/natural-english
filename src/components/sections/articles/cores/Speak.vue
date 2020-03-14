@@ -45,12 +45,15 @@ export default {
 <style scoped>
 .iconfont {
   font-size: 3rem;
-  margin: 2rem 0 3rem 0;
+  margin: 0;
+  padding: 0;
 }
 .iconfont:hover {
   cursor: pointer;
 }
-
+.icon-unie6f02{
+  margin: 2rem 3rem 3rem;
+}
 .speak {
   position: relative;
 }
@@ -64,10 +67,13 @@ export default {
 .pos {
   bottom: -5.6rem;
   position: absolute;
-
-  border-radius: 50%;
-  background-color: #fff;
 }
+.icon-10{
+  border-radius: 5rem;
+  background-color: #fff;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+}
+
 
 /* 过度样式 */
 .component-fade-enter-active,

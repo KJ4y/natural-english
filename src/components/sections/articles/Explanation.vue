@@ -1,17 +1,15 @@
 <template>
-  <article class="explan" v-if="cont">
-    <h3>{{step}}</h3>
-    <div class="explan-cont" v-for="(item,index) in exp" :key="index">
+  <article class="explan" v-show="explans">
+    <h3>{{title}}</h3>
+    <div class="explan-cont" v-for="(item,index) in explans" :key="index">
       <h5>{{ item[0] }}</h5>
-      <p class="word-explan" v-for="(item,index) in item[1]" :key="index">
-        <a
-          @click="transFunc(item[0])"
-          @mouseup="moveTrans()"
-          v-html="showTrans(item[0],tran)"
-        ></a>
+      <p class="word-explan" v-for="(item,index) in exps" :key="index">
+        <span @click="transFunc(item,index)" class="iconfont icon-unie718"></span>
+        <span v-html="item"></span>
+        <br />
+        <span class="blue" v-html="showTrans(index)"></span>
       </p>
     </div>
-    <p>{{text }}</p>
   </article>
 </template>
 
@@ -22,57 +20,68 @@ import get from "../../../url";
 export default {
   name: "Explanation",
   props: {
-    cont: null,
-    step: null
+    explans: null
   },
   data() {
     return {
-      explan: null,
-      tran: null,
-      explans: [],
-      trans: [],
-      text: ""
+      title: "Explanation",
+      exp: null,
+      show: null,
+      tran: null
     };
   },
   computed: {
-    exp: function() {
-      return this.cont[12];
-    }
+    exps: function() {
+      let exps = [];
+      for (let i = 0; i < this.explans.length; i++) {
+        for (let j = 0; j < this.explans[i][1].length; j++) {
+          exps.push(this.explans[i][1][j][0]);
+        }
+      }
+      return exps;
+    },
+    trans: function() {
+      let trans = [];
+      for (let i = 0; i < this.explans.length; i++) {
+        for (let j = 0; j < this.explans[i][1].length; j++) {
+          trans.push(null);
+        }
+      }
+      return trans;
+    },
   },
-  methods: {
-    transFunc: function(item) {
+  watch: {
+    exp: function() {
+      let expsSub = this.exps.indexOf(this.exp);
       let url = get.url(
         '"' +
-          item
+          this.exp
             .replace("<b>", "")
             .replace("</b>", "")
             .replace(";", ".") +
           '"'
       );
-      this.explan = item.replace("<b>", "").replace("</b>", "");
-      if (this.trans[this.explans.indexOf(item)] == undefined) {
-        this.explans.push(item);
-        axios.get(url).then(Response => {
-          for (let index = 0; index < Response.data[0].length; index++) {
-            this.text += Response.data[0][index][0];
-          }
-          this.trans.push(this.text);
-          this.text = "";
-        });
+      if (this.trans[expsSub] == null) {
+        axios.get(url).then(Response => (this.tran = Response.data[0][0][0]));
       }
-      this.tran = this.trans[this.explans.indexOf(item)];
     },
-    moveTrans: function() {
-      this.tran = null;
-    },
-    showTrans: function(item, tran) {
-      if (
-        item.replace("<b>", "").replace("</b>", "") == this.explan &&
-        tran != null
-      ) {
-        return item + "<br />" + tran;
+    tran: function() {
+      let expsSub = this.exps.indexOf(this.exp);
+      this.trans.splice(expsSub, 1, this.tran);
+    }
+  },
+  methods: {
+    transFunc: function(item, index) {
+      this.exp = item;
+      if (this.show != index) {
+        this.show = index;
       } else {
-        return item;
+        this.show = null;
+      }
+    },
+    showTrans: function(index) {
+      if (this.show == index && this.tran != null) {
+        return this.trans[this.show];
       }
     }
   }
@@ -80,10 +89,25 @@ export default {
 </script>
 
 <style scoped>
-.explan,.word-explan,.explan-cont,a{
+.explan,
+.word-explan,
+.explan-cont,
+span {
   text-align: center;
 }
 .explan-cont {
   display: block;
+}
+.blue {
+  color: #0098f8;
+  font-size: 1.2rem;
+}
+span:hover {
+  cursor: pointer;
+  color: #0098f8;
+}
+
+.icon-unie718 {
+  font-size: 2rem;
 }
 </style>

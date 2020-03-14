@@ -1,6 +1,6 @@
 <template>
   <article class="revise flex-center">
-    <div v-if="exam" class="btn-layout">
+    <div v-show="exam" class="btn-layout">
       <button
         class="btn"
         :class="{ isactive:index == isActive }"
