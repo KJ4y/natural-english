@@ -1,6 +1,6 @@
 <template>
   <article class="listen flex-center">
-    <span class="iconfont icon-unie66a"></span>
+    <span class="iconfont icon-unie66a" @click="listenSent"></span>
 
     <select class="block-style" v-model="select">
       <option disabled selected value="select">请选择语音引擎</option>
@@ -56,7 +56,9 @@ export default {
     },
   },
   methods: {
-    listenSent: function() {}
+    listenSent: function() {
+      this.$refs.audio.play();
+    }
   }
 };
 </script>
@@ -68,7 +70,7 @@ export default {
 }
 
 select {
-  margin: 3rem 3rem;
+  margin: 1rem 3rem 3rem;
   text-align: center;
   border-color: #fff;
   appearance: none;
@@ -81,7 +83,11 @@ option {
   text-align-last: center;
 }
 
-.radio-block {
-  display: block;
+.iconfont{
+  font-size: 3rem;
 }
+.iconfont:hover{
+  cursor: pointer;
+}
+
 </style>
