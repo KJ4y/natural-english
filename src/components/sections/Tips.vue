@@ -62,7 +62,7 @@
         加入交流群
         <span class="iconfont icon-10"></span>
       </h3>
-      <iframe v-if="click" v-show="show" :src="qqurl" frameborder="0"></iframe>
+      <iframe v-if="click" v-show="show" :src="qqurl"></iframe>
     </div>
   </section>
 </template>
