@@ -3,9 +3,9 @@
     <div v-show="expands !=true" class="flex-center tip" @click="expandDes">
       <h3>
         使用方法
-        <span v-if="expand != true" class="iconfont icon-10"></span>
+        <span v-show="expand != true" class="iconfont icon-10"></span>
       </h3>
-      <div v-if="expand">
+      <div v-show="expand">
         <h4>
           1.输入一个单词查看
           <span>英语解释</span>
@@ -38,8 +38,7 @@
         Tips
         <span v-show="expands != true" class="iconfont icon-10"></span>
       </h3>
-
-      <p v-if="expands">
+      <p v-show="expands">
         <br />听说读写阶段尽量是通过选择句子所
         <span>想象的场景</span>进行
         <br />
@@ -58,6 +57,13 @@
         <br />中间过程就会缩短了一个知识量
       </p>
     </div>
+    <div class="tip" @click="joinQQClub">
+      <h3>
+        加入交流群
+        <span class="iconfont icon-10"></span>
+      </h3>
+      <iframe v-if="click" v-show="show" :src="qqurl" frameborder="0"></iframe>
+    </div>
   </section>
 </template>
 
@@ -67,7 +73,11 @@ export default {
   data() {
     return {
       expand: false,
-      expands: false
+      expands: false,
+      qqurl:
+        "http://qm.qq.com/cgi-bin/qm/qr?from=app&p=android&k=PD9LUy84uenfh9VOS66f0ZCVjAe0d_LQ",
+      click: false,
+      show: false
     };
   },
   methods: {
@@ -83,6 +93,13 @@ export default {
         this.expands = true;
       } else {
         this.expands = false;
+      }
+    },
+    joinQQClub: function() {
+      if (this.click == false) {
+        this.click = true;
+      } else {
+        this.click = false;
       }
     }
   }
@@ -109,11 +126,17 @@ export default {
 .iconfont {
   font-size: 1.5rem;
 }
-.icon-10{
+.icon-10 {
   border-radius: 5rem;
 }
 
 span {
   color: #0098f8;
+}
+
+a,
+a:visited {
+  color: #0098f8;
+  text-decoration: none;
 }
 </style>
